@@ -26,13 +26,13 @@ class TodosController < ApplicationController
     the_todo.details = params.fetch("query_details")
     the_todo.status = "waiting_on"
     the_todo.user_id = session.fetch(:user_id)
-
+    today = Date.today
+    
     if the_todo.valid?
       the_todo.save
-      #redirect_to("/todos", { :notice => "Todo created successfully." })
-      redirect_to("/", { :notice => "Todo created successfully." })
+      redirect_to("/todos", { :notice => "Added to list." })
     else
-      #redirect_to("/todos", { :alert => the_todo.errors.full_messages.to_sentence })
+      
       redirect_to("/", { :alert => the_todo.errors.full_messages.to_sentence })
     end
   end
@@ -50,9 +50,9 @@ class TodosController < ApplicationController
       #redirect_to("/", { :notice => "Todo updated successfully."} )
     if the_todo.valid?
      the_todo.save
-      redirect_to("/", { :notice => "Todo updated successfully."} )
+      redirect_to("/todos", { :notice => "Added to list"} )
     else
-      redirect_to("/", { :alert => the_todo.errors.full_messages.to_sentence })
+      redirect_to("/todos", { :alert => the_todo.errors.full_messages.to_sentence })
     end
   end
 
@@ -62,6 +62,6 @@ class TodosController < ApplicationController
 
     the_todo.destroy
 
-    redirect_to("/todos", { :notice => "Todo deleted successfully."} )
+    redirect_to("/", { :notice => "Todo deleted successfully."} )
   end
 end

@@ -1,5 +1,6 @@
 <div>
   <div>
+  <p> Added to list.</p>
     <h1>
       Delivery Tracker
     </h1>
@@ -62,24 +63,36 @@
     
       <li>
         <div><%= a_wait.description %></div>
+        <% @days_diff = (Date.today - a_wait.date_to_arrive).to_i %>
+        
+        <% if  @days_diff  > 3  %>
+            <div style="color: red;">
+              Supposed to arrive on
+              <%= a_wait.date_to_arrive %>
+            </div>
+            <div style="background-color:lightyellow;">
+              <form action="/modify_todo/<%= a_wait.id %>" method="post">
+                <input type="hidden" name="query_status" value="received">
 
-        <div style="">
-          Supposed to arrive on
-          <%= a_wait.date_to_arrive %>
-        </div>
-
-        <div>
+                <button>Mark as received</button>
+              </form>
+            </div>
+          <% else %>
+            <div style="color: black;">
+              Supposed to arrive on
+              <%= a_wait.date_to_arrive %>
+            </div>
+          
           <%= a_wait.details %>
-        </div>
+        
 
-        <div>
+        <div style="background-color:lightyellow;">
           <form action="/modify_todo/<%= a_wait.id %>" method="post">
             <input type="hidden" name="query_status" value="received">
-
-            <button>Mark as received</button>
+             <button>Mark as received</button>
           </form>
         </div>
-        
+        <% end %>
       </li>
       
   </ul>
@@ -97,7 +110,7 @@
         <div><%= a_rece.description %></div>
 
         <div style="">
-          <small>Updated less than <%= time_ago_in_words(a_rece.created_at) %> ago <a href="/delete_todo/<%= a_rece.id %>">Delete</a>
+          <small>Updated <%= time_ago_in_words(a_rece.updated_at) %> ago <a href="/delete_todo/<%= a_rece.id %>">Delete</a>
               </small>
         </div>
         

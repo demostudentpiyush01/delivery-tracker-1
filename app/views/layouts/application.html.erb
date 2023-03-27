@@ -16,21 +16,25 @@
   </head>
 
   <body>
+
   <% if session.fetch(:user_id) == nil %>
+      
       <li>
+        <a href="/user_sign_in">Sign in</a>
         <a href="/user_sign_up"> Sign up</a>
 
-        <a href="/user_sign_in">Sign in</a>
+        
       </li>
       <p>You have to sign in first.</p>
       <% else %>
       
-        <a href="/">Delivery Tracker</a>
+      <li>
+        <a href="/user_sign_in">Your todo list</a>
       |
        <a href="/edit_user_profile">Edit profile</a>
       |
       <a href="/user_sign_out">Sign out</a>
-      
+      </li>
       <% end %>
     <%= yield %>
   </body>
